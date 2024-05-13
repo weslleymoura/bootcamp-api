@@ -18,7 +18,7 @@ delivery_region = DeliveryRegion()
 async def bootcamp():
     return {"message": "Bem-vindo ao bootcamp!"}
 
-@app.get("/get-delivery-region-info/{cep}", summary="Valida região de entrega")
+@app.get("/get-lat-lng-cep/{cep}", summary="Retorna latitude e longitude de um CEP")
 def get_delivery_region_info(cep):
 
     # Busca os dados de um CEP
@@ -28,8 +28,19 @@ def get_delivery_region_info(cep):
     geolocator = Nominatim(user_agent="test_app")
     location = geolocator.geocode(address['street'] + ", " + address['city'] + " - " + address['district'])
 
+    # Prepara o resultado do endpoint
+    result = {
+        'lat': location.latitude,
+        'lng': location.longitude
+    }
+
+    return result
+
+@app.get("/get-delivery-region/{lat}/{lng}", summary="Valida região de entrega")
+def get_delivery_region(lat, lng):
+
     # Prepara as coordenadas do CEP
-    coords_cep = (location.latitude, location.longitude)
+    coords_cep = (lat, lng)
 
     # Lista centróides dos clusters
     centers = delivery_region.get_cluster_centroids(delivery_region.model)

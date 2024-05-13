@@ -9,7 +9,6 @@ class DeliveryRegion:
         self.env = env
         self.app_config = self.get_app_config(env)
         self.version = self.app_config['version']
-        self.n_clusters = int(self.app_config['n_clusters'])
         self.covered_region_in_km = int(self.app_config['covered_region_in_km'])
         self.model = self.get_model(self.app_config['model_location'])
         self.sample_points_location = self.app_config['sample_points_location']
