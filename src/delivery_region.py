@@ -17,7 +17,8 @@ class DeliveryRegion:
     def get_app_config (self, env):
 
         app_config = configparser.ConfigParser()
-        app_config.read('/app/api/config/app_config.ini')
+        #app_config.read('/app/api/config/app_config.ini')
+        app_config.read('config/app_config.ini')
         return app_config[env]
     
     # Carrega o modelo
